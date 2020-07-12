@@ -22,12 +22,14 @@ export default function App(): ReactElement {
   }, [setViewType]);
 
   return (
-    <div className="bg-main-background w-screen h-screen overflow-hidden">
+    <div className="bg-main-background w-full h-full">
       <BrowserRouter>
         {viewType === ViewTypes.GUI ? (
           <>
             <Header />
-            <Navigation />
+            <div className="page-contents">
+              <Navigation />
+            </div>
             <Footer />
           </>
         ) : (

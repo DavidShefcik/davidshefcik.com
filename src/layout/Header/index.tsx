@@ -12,7 +12,7 @@ export default function Header(): ReactElement {
   const toggleMobileMenuOpen = useMobileMenu((state) => state.toggleOpen);
 
   return (
-    <div className="flex flex-row items-center justify-between bg-secondary-background box-border px-5 h-16 w-full overflow-hidden fixed shadow">
+    <div className="flex flex-row items-center justify-between bg-secondary-background box-border px-5 h-16 w-full overflow-hidden fixed z-0 shadow">
       <div className="h-full w-3/4 w-3/4 lg:w-1/4 flex justify-center items-center">
         <Link
           to="/"
