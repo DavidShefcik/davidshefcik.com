@@ -20,6 +20,7 @@
     "react-dom": "^16.13.1",
     "react-hamburger-menu": "^1.2.1",
     "react-router-dom": "^5.2.0",
+    "react-switch": "^5.0.1",
     "tailwindcss": "^1.4.6",
     "webpack-merge": "^5.0.9",
     "zustand": "^2.2.3"

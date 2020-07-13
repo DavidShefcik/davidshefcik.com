@@ -6,6 +6,7 @@ import "./css/tailwind.css";
 import Header from "../layout/Header";
 import Terminal from "../layout/Terminal";
 import Navigation from "./Navigation";
+import ViewTypeSwitch from "../layout/ViewTypeSwitch";
 import Footer from "../layout/Footer";
 
 import useViewType, { ViewTypes } from "../store/ViewType";
@@ -23,6 +24,7 @@ export default function App(): ReactElement {
 
   return (
     <div className="bg-main-background w-full h-full">
+      <ViewTypeSwitch />
       <BrowserRouter>
         {viewType === ViewTypes.GUI ? (
           <>

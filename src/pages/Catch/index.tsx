@@ -5,7 +5,7 @@ import emojiImage from "./media/emoji.png";
 
 export default function Catch(): ReactElement {
   return (
-    <div className="h-full w-full flex justify-center items-center flex-col">
+    <div className="page-contents-height w-full flex justify-center items-center flex-col">
       <img src={emojiImage} alt="" />
       <div className="pt-8 flex items-center flex-col">
         <p className="text-2xl text-white pb-4">Well, this is awkward.</p>

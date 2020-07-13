@@ -13,7 +13,7 @@ export default function Header(): ReactElement {
 
   return (
     <div className="flex flex-row items-center justify-between bg-secondary-background box-border px-5 h-16 w-full overflow-hidden fixed z-0 shadow">
-      <div className="h-full w-3/4 w-3/4 lg:w-1/4 flex justify-center items-center">
+      <div className="h-full w-3/4 lg:w-1/4 flex justify-center items-center">
         <Link
           to="/"
           title="David Shefcik"
@@ -22,7 +22,7 @@ export default function Header(): ReactElement {
           <p className="text-2xl text-white italic">David Shefcik</p>
         </Link>
       </div>
-      <div className="h-full w-1/4 w-1/4 lg:w-3/4">
+      <div className="h-full w-1/4 lg:w-3/4">
         <div className="w-full h-full hidden lg:flex justify-center items-center flex-row">
           {navLinks.map((link: NavLink) => {
             return (
