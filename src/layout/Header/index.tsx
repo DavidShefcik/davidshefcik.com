@@ -12,7 +12,7 @@ export default function Header(): ReactElement {
   const toggleMobileMenuOpen = useMobileMenu((state) => state.toggleOpen);
 
   return (
-    <div className="flex flex-row items-center justify-between bg-secondary-background box-border px-5 h-16 w-full overflow-hidden fixed z-0 shadow">
+    <div className="flex flex-row items-center justify-between bg-secondary-background box-border px-5 h-16 w-full overflow-hidden fixed z-50 shadow">
       <div className="h-full w-3/4 lg:w-1/4 flex justify-center items-center">
         <Link
           to="/"
@@ -23,7 +23,7 @@ export default function Header(): ReactElement {
         </Link>
       </div>
       <div className="h-full w-1/4 lg:w-3/4">
-        <div className="w-full h-full hidden lg:flex justify-center items-center flex-row">
+        <div className="w-full h-full hidden lg:flex justify-end px-24 items-center flex-row">
           {navLinks.map((link: NavLink) => {
             return (
               <Link to={link.path} title={link.text} key={link.text}>

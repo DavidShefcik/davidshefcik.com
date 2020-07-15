@@ -25,3 +25,13 @@
 .page-contents-height {
     height: calc(100vh - 64px);
 }
+
+.growable-home-section {
+    min-height: calc((100vh - 64px) / 3);
+    width: 100%;
+}
+.fixed-home-section {
+    height: calc((100vh - 64px) / 3);
+    width: 100%;
+    overflow: hidden;
+}
