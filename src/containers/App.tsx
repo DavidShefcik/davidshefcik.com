@@ -1,6 +1,8 @@
 import React, { ReactElement, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
+import firebase, { User } from "firebase";
 import app from "firebase/app";
+import "firebase/auth";
 
 import "./css/tailwind.css";
 
@@ -11,11 +13,16 @@ import ViewTypeSwitch from "../layout/ViewTypeSwitch";
 import Footer from "../layout/Footer";
 
 import useViewType, { ViewTypes } from "../store/ViewType";
+
 import useFirebase from "../store/Firebase";
+
+import useSession from "../store/Session";
 
 export default function App(): ReactElement {
   const viewType = useViewType((state) => state.type);
   const setViewType = useViewType((state) => state.setType);
+
+  const setSession = useSession((state) => state.setSession);
 
   const createFirebase = useFirebase((state) => state.createFirebase);
   let config = {};
@@ -41,8 +48,45 @@ export default function App(): ReactElement {
   }
 
   const firebaseApp = app.initializeApp(config);
+  const provider = new firebase.auth.GoogleAuthProvider();
 
-  createFirebase(firebaseApp);
+  provider.addScope("https://www.googleapis.com/auth/userinfo.email");
+  provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
+
+  createFirebase(firebaseApp, provider);
+
+  firebaseApp.auth().onAuthStateChanged((user: User) => {
+    if (user) {
+      firebaseApp
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .get()
+        .then((result: any) => {
+          if (result) {
+            const { admin } = result.data();
+            if (admin) {
+              setSession(user);
+            } else {
+              firebaseApp
+                .auth()
+                .signOut()
+                .then(() => {})
+                .catch((error) => {
+                  if (process.env.NODE_ENV === "dev") {
+                    console.log(error);
+                  }
+                });
+            }
+          }
+        })
+        .catch((error) => {
+          if (process.env.NODE_ENV === "dev") {
+            console.log(error);
+          }
+        });
+    }
+  });
 
   useEffect(() => {
     const localStorageViewType = localStorage.getItem("viewtype");
