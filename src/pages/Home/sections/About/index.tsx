@@ -1,3 +1,5 @@
+/* eslint no-nested-ternary: "off" */
+
 import React, { ReactElement, useState, useEffect } from "react";
 import { BarLoader } from "react-spinners";
 import "firebase/firestore";
@@ -31,7 +33,6 @@ export default function About(): ReactElement {
   }, []);
 
   return (
-    /* eslint no-nested-ternary: "off" */
     <div className="growable-home-section flex items-center flex-col py-6 px-10">
       <p className="text-white text-2xl pb-6">About</p>
       {status === "loading" ? (

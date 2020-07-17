@@ -61,7 +61,35 @@ export default function Login(): ReactElement {
 
   firebase.auth().onAuthStateChanged((user: User) => {
     if (user) {
-      setSession(user);
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .get()
+        .then((result: any) => {
+          if (result) {
+            const { admin } = result.data();
+            if (admin) {
+              setSession(user);
+            } else {
+              firebase
+                .auth()
+                .signOut()
+                .then(() => {})
+                .catch((error) => {
+                  if (process.env.NODE_ENV === "dev") {
+                    console.log(error);
+                  }
+                });
+            }
+          }
+        })
+        .catch((error: any) => {
+          if (process.env.NODE_ENV === "dev") {
+            console.log(error);
+          }
+        });
+
       history.push("/");
     }
   });

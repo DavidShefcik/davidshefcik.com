@@ -7,9 +7,13 @@ import navLinks from "../../values/navLinks";
 
 import useMobileMenu from "../../store/MobileMenu";
 
+import useSession from "../../store/Session";
+
 export default function Header(): ReactElement {
   const mobileMenuOpen = useMobileMenu((state) => state.open);
   const toggleMobileMenuOpen = useMobileMenu((state) => state.toggleOpen);
+
+  const session = useSession((state) => state.session);
 
   return (
     <div className="flex flex-row items-center justify-between bg-secondary-background box-border px-5 h-16 w-full overflow-hidden fixed z-50 shadow">
@@ -35,6 +39,15 @@ export default function Header(): ReactElement {
               </Link>
             );
           })}
+          {session.loggedIn === true && session.user != null ? (
+            <Link to="/dashboard" title="Dashboard">
+              <div className="flex justify-center items-center h-full px-5">
+                <p className="text-lg text-gray-400 hover:text-gray-100 transition ease-in duration-100">
+                  Dashboard
+                </p>
+              </div>
+            </Link>
+          ) : null}
         </div>
         <div className="w-full h-full flex lg:hidden justify-center items-center">
           <span className="cursor-pointer">

@@ -47,46 +47,48 @@ export default function App(): ReactElement {
     };
   }
 
-  const firebaseApp = app.initializeApp(config);
-  const provider = new firebase.auth.GoogleAuthProvider();
+  if (firebase.apps.length === 0) {
+    const firebaseApp = app.initializeApp(config);
+    const provider = new firebase.auth.GoogleAuthProvider();
 
-  provider.addScope("https://www.googleapis.com/auth/userinfo.email");
-  provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
+    provider.addScope("https://www.googleapis.com/auth/userinfo.email");
+    provider.addScope("https://www.googleapis.com/auth/userinfo.profile");
 
-  createFirebase(firebaseApp, provider);
+    createFirebase(firebaseApp, provider);
 
-  firebaseApp.auth().onAuthStateChanged((user: User) => {
-    if (user) {
-      firebaseApp
-        .firestore()
-        .collection("users")
-        .doc(user.uid)
-        .get()
-        .then((result: any) => {
-          if (result) {
-            const { admin } = result.data();
-            if (admin) {
-              setSession(user);
-            } else {
-              firebaseApp
-                .auth()
-                .signOut()
-                .then(() => {})
-                .catch((error) => {
-                  if (process.env.NODE_ENV === "dev") {
-                    console.log(error);
-                  }
-                });
+    firebaseApp.auth().onAuthStateChanged((user: User) => {
+      if (user) {
+        firebaseApp
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get()
+          .then((result: any) => {
+            if (result) {
+              const { admin } = result.data();
+              if (admin) {
+                setSession(user);
+              } else {
+                firebaseApp
+                  .auth()
+                  .signOut()
+                  .then(() => {})
+                  .catch((error) => {
+                    if (process.env.NODE_ENV === "dev") {
+                      console.log(error);
+                    }
+                  });
+              }
             }
-          }
-        })
-        .catch((error) => {
-          if (process.env.NODE_ENV === "dev") {
-            console.log(error);
-          }
-        });
-    }
-  });
+          })
+          .catch((error) => {
+            if (process.env.NODE_ENV === "dev") {
+              console.log(error);
+            }
+          });
+      }
+    });
+  }
 
   useEffect(() => {
     const localStorageViewType = localStorage.getItem("viewtype");
@@ -96,7 +98,7 @@ export default function App(): ReactElement {
   }, [setViewType]);
 
   return (
-    <div className="bg-main-background w-full h-full">
+    <div className="bg-primary-background w-full h-full">
       <ViewTypeSwitch />
       <BrowserRouter>
         {viewType === ViewTypes.GUI ? (
