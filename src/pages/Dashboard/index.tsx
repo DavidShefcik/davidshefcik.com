@@ -1,6 +1,7 @@
 /* eslint no-nested-ternary: "off" */
 
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 import SectionList from "./SectionList";
 
@@ -9,8 +10,20 @@ import Projects from "./sections/Projects";
 import Skills from "./sections/Skills";
 import Contact from "./sections/Contact";
 
+import useSession from "../../store/Session";
+
 export default function Dashboard(): ReactElement {
+  const loggedIn = useSession((state) => state.session.loggedIn);
+
   const [currentSection, setCurrentSection] = useState("about");
+
+  const history = useHistory();
+
+  // useEffect(() => {
+  //   if (!loggedIn) {
+  //     history.push("/");
+  //   }
+  // }, [loggedIn]);
 
   return (
     <div className="page-contents-height w-full flex flex-col lg:flex-row justify-center items-center py-10">
