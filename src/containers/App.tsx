@@ -23,6 +23,7 @@ export default function App(): ReactElement {
   const setViewType = useViewType((state) => state.setType);
 
   const setSession = useSession((state) => state.setSession);
+  const setNotLoggedIn = useSession((state) => state.setNotLoggedIn);
 
   const createFirebase = useFirebase((state) => state.createFirebase);
   let config = {};
@@ -69,6 +70,7 @@ export default function App(): ReactElement {
               if (admin) {
                 setSession(user);
               } else {
+                setNotLoggedIn();
                 firebaseApp
                   .auth()
                   .signOut()
@@ -86,6 +88,8 @@ export default function App(): ReactElement {
               console.log(error);
             }
           });
+      } else {
+        setNotLoggedIn();
       }
     });
   }

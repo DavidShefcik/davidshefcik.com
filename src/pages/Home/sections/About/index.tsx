@@ -1,5 +1,3 @@
-/* eslint no-nested-ternary: "off" */
-
 import React, { ReactElement, useState, useEffect } from "react";
 import { BarLoader } from "react-spinners";
 import "firebase/firestore";
@@ -42,7 +40,9 @@ export default function About(): ReactElement {
           Something happened! Please try again!
         </p>
       ) : (
-        <p className="text-lg text-gray-300 text-center">{status}</p>
+        <p className="text-lg text-gray-300 text-center w-4/5 lg:w-2/4">
+          {status}
+        </p>
       )}
     </div>
   );

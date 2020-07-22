@@ -2,19 +2,20 @@ import create, { SetState } from "zustand";
 import { User } from "firebase";
 
 interface Session {
-  loggedIn: boolean;
+  loggedIn: boolean | null;
   user: User | null;
 }
 interface SessionState {
   session: Session;
   setSession: any;
   clearSession: any;
+  setNotLoggedIn: any;
   updateUser: any;
 }
 
 const [useStore] = create((set: SetState<SessionState>) => ({
   session: {
-    loggedIn: false,
+    loggedIn: null,
     user: null,
   },
   setSession: (user: User) =>
@@ -22,6 +23,13 @@ const [useStore] = create((set: SetState<SessionState>) => ({
       session: {
         loggedIn: true,
         user,
+      },
+    })),
+  setNotLoggedIn: () =>
+    set((state: any) => ({
+      session: {
+        loggedIn: false,
+        user: state.session.user,
       },
     })),
   clearSession: () =>

@@ -1,5 +1,3 @@
-/* eslint no-nested-ternary: "off" */
-
 import React, { ReactElement, useState, useEffect } from "react";
 import { BarLoader } from "react-spinners";
 import "firebase/firestore";
@@ -104,9 +102,9 @@ export default function About(): ReactElement {
         <FormTextArea value={aboutValue} onChange={setTextAreaValue} />
       )}
       {updateStatus === "success" ? (
-        <p className="text py-2 text-green-600">Successfully updated!</p>
+        <p className="py-2 text-green-600">Successfully updated!</p>
       ) : updateStatus === "error" ? (
-        <p className="text py-2 text-red-600">
+        <p className="py-2 text-red-600">
           Something happened! Please try again!
         </p>
       ) : null}

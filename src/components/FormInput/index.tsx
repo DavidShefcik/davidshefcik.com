@@ -10,6 +10,8 @@ interface Props {
   placeholder: string;
   maxLength: number;
   onChange: Dispatch<SetStateAction<string>>;
+  value: string;
+  error?: boolean;
 }
 
 export default function FormInput({
@@ -17,6 +19,8 @@ export default function FormInput({
   placeholder,
   maxLength,
   onChange,
+  value,
+  error,
 }: Props): ReactElement {
   function change(event: ChangeEvent<HTMLInputElement>) {
     onChange(event.target.value);
@@ -28,7 +32,10 @@ export default function FormInput({
       placeholder={placeholder}
       maxLength={maxLength}
       onChange={change}
-      className="px-4 py-3 my-1 w-2/3 md:1/3 lg:w-1/4 xl:w-1/5 text-white bg-secondary-background rounded-sm outline-none transition ease-in duration-75 border border-solid border-secondary-background focus:border-blue-400"
+      value={value}
+      className={`px-4 py-3 my-1 w-2/3 lg:w-2/4 text-white bg-secondary-background rounded-sm outline-none transition ease-in duration-75 border border-solid ${
+        error ? "border-red-600" : "border-darker-primary-background"
+      } focus:border-blue-400`}
     />
   );
 }
