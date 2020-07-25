@@ -9,6 +9,8 @@ import useFirebase from "../../../../store/Firebase";
 
 import useAboutStore from "../../../../store/dashboard/About";
 
+import useSession from "../../../../store/Session";
+
 export default function About(): ReactElement {
   const [buttonLoading, setButtonLoading] = useState(false);
   const [status, setStatus] = useState("loading");
@@ -16,8 +18,12 @@ export default function About(): ReactElement {
   const [aboutValue, setAboutValue] = useState("");
   const [textAreaValue, setTextAreaValue] = useState("");
 
+  const loggedIn = useSession((state) => state.session.loggedIn);
+
   const firebase = useFirebase((state) => state.firebase);
+
   const aboutTextStore = useAboutStore((state) => state.aboutText);
+
   const setAboutTextStore = useAboutStore((state) => state.setAboutText);
 
   const db = firebase.firestore();
@@ -75,14 +81,16 @@ export default function About(): ReactElement {
   }
 
   useEffect(() => {
-    if (aboutTextStore === null) {
-      fetchAbout();
-    } else {
-      setStatus("success");
-      setAboutValue(aboutTextStore);
-      setTextAreaValue(aboutTextStore);
+    if (loggedIn) {
+      if (aboutTextStore === null) {
+        fetchAbout();
+      } else {
+        setStatus("success");
+        setAboutValue(aboutTextStore);
+        setTextAreaValue(aboutTextStore);
+      }
     }
-  }, []);
+  }, [loggedIn]);
 
   useEffect(() => {
     setAboutTextStore(textAreaValue);

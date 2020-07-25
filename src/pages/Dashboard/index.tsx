@@ -25,13 +25,13 @@ export default function Dashboard(): ReactElement {
 
   return (
     <div className="page-contents-height w-full flex flex-col lg:flex-row justify-center items-center py-10">
-      <div className="w-11/12 lg:w-1/4 xl:w-1/5 flex h-auto lg:h-full justify-center items-start bg-secondary-background rounded-sm px-2 py-4 ms-4 my-2 lg:my-6 overflow-visible lg:overflow-auto">
+      <div className="w-11/12 lg:w-1/4 xl:w-1/5 h-auto lg:h-full justify-center items-start bg-secondary-background rounded-sm px-2 py-4 ms-4 my-2 lg:my-6 overflow-visible lg:overflow-auto">
         <SectionList
           currentSection={currentSection}
           click={setCurrentSection}
         />
       </div>
-      <div className="w-11/12 lg:w-2/4 xl:w-1/3 h-full flex justify-center items-start bg-secondary-background rounded-sm px-2 py-4 mx-4 my-2 lg:my-6 overflow-visible lg:overflow-auto">
+      <div className="w-11/12 lg:w-2/4 xl:w-1/3 h-full flex justify-center items-start bg-secondary-background rounded-sm px-2 py-1 mx-4 my-2 lg:my-6 overflow-visible lg:overflow-auto">
         {currentSection === "about" ? (
           <About />
         ) : currentSection === "projects" ? (

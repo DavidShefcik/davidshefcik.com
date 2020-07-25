@@ -21,6 +21,8 @@ import useAddProject from "../../../../../store/dashboard/Projects/AddProject";
 
 import useAddProjectErrors from "../../../../../store/dashboard/Projects/AddProjectErrors";
 
+import useProjectList from "../../../../../store/dashboard/Projects/ProjectList";
+
 import Project from "../../../../../types/Project";
 
 interface Props {
@@ -30,11 +32,17 @@ interface Props {
 export default function AddProject({ close }: Props): ReactElement {
   const addProjectValues = useAddProject((state) => state.values);
   const setProjectValue = useAddProject((state) => state.setValue);
+  const clearProjectValues = useAddProject((state) => state.clearValues);
 
   const addProjectErrorValues = useAddProjectErrors((state) => state.values);
   const setAddProjectErrorValue = useAddProjectErrors(
     (state) => state.setValue
   );
+  const clearProjectErrorValues = useAddProjectErrors(
+    (state) => state.clearValues
+  );
+
+  const addProjectList = useProjectList((state) => state.addProject);
 
   const [nameValue, setNameValue] = useState(addProjectValues.name);
   const [descriptionValue, setDescriptionValue] = useState(
@@ -69,7 +77,7 @@ export default function AddProject({ close }: Props): ReactElement {
 
   const db = firebase.firestore();
 
-  function submit(): void {
+  async function submit(): Promise<boolean> {
     let hasError = false;
 
     setLoading(true);
@@ -154,50 +162,55 @@ export default function AddProject({ close }: Props): ReactElement {
 
     if (!hasError) {
       // Check if project with name already exists in database
-      db.collection("projects")
-        .get()
-        .then((docs: any) => {
-          docs.forEach((doc: any) => {
-            const docName = doc.data().name;
-            if (docName.toUpperCase() === nameValue) {
-              hasError = true;
-            }
-          });
+      try {
+        const docs = await db.collection("projects").get();
+        docs.forEach((doc: any) => {
+          const docName = doc.data().name;
+          if (docName.toUpperCase() === nameValue.toUpperCase()) {
+            hasError = true;
+            setErrorText("Name is already in use!");
+            setNameError(true);
+          }
         });
-
-      if (hasError) {
-        setNameError(true);
-        setErrorText("Project name is already in use!");
+      } catch (error) {
+        if (process.env.NODE_ENV === "dev") {
+          console.log(error);
+        }
+        hasError = true;
+        setErrorText("Something happened! Please try again!");
       }
-    }
 
-    if (!hasError) {
-      const tech = techValue.toString().split(", ");
+      if (!hasError) {
+        const tech = techValue.toString().split(", ");
 
-      const projectForDB: Project = {
-        name: nameValue,
-        description: descriptionValue,
-        openSource: openSourceValue,
-        githubLink: githubValue,
-        live: liveValue,
-        liveLink: liveLinkValue,
-        tech,
-      };
+        const projectForDB: Project = {
+          name: nameValue,
+          description: descriptionValue,
+          openSource: openSourceValue,
+          githubLink: githubValue,
+          live: liveValue,
+          liveLink: liveLinkValue,
+          tech,
+        };
 
-      db.collection("projects")
-        .add(projectForDB)
-        .then(() => {
-          setLoading(false);
+        try {
+          const newDoc = await db.collection("projects").add(projectForDB);
           close(false);
-        })
-        .catch((error) => {
+          clearProjectValues();
+          clearProjectErrorValues();
+          addProjectList(newDoc);
+        } catch (error) {
           if (process.env.NODE_ENV === "dev") {
             console.log(error);
           }
-        });
+          hasError = true;
+          setErrorText("Something happened! Please try again!");
+        }
+      }
     }
-
     setLoading(false);
+
+    return true;
   }
 
   // Inputs
@@ -269,7 +282,11 @@ export default function AddProject({ close }: Props): ReactElement {
           size={32}
           className="text-red-600 hover:text-red-700 cursor-pointer transition ease-in duration-75"
           title="Cancel"
-          onClick={() => close(false)}
+          onClick={() => {
+            close(false);
+            clearProjectValues();
+            clearProjectErrorValues();
+          }}
         />
       </div>
       <FormInput
@@ -355,7 +372,7 @@ export default function AddProject({ close }: Props): ReactElement {
       {errorText !== "" ? (
         <p className="py-2 text-red-600">{errorText}</p>
       ) : null}
-      <FormButton text="Add Project" loading={loading} click={() => submit()} />
+      <FormButton text="Add Project" loading={loading} click={submit} />
     </div>
   );
 }

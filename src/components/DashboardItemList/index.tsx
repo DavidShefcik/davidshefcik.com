@@ -1,39 +1,40 @@
-import React, {
-  ReactElement,
-  createElement,
-  FunctionComponent,
-  useState,
-} from "react";
+import React, { ReactElement, createElement, Fragment, useState } from "react";
 
 import FormButton from "../FormButton";
 
 interface Props {
   items: Array<any>;
-  listItem: FunctionComponent;
-  addItem: FunctionComponent;
+  listItem: any;
+  addItem: any;
+  showAddItem: boolean;
+  setShowAddItem: any;
 }
 
 export default function DashboardItemList({
   items,
   listItem,
   addItem,
+  showAddItem,
+  setShowAddItem,
 }: Props): ReactElement {
-  const [showAddItem, setShowAddItem] = useState(true);
-
   return (
     <div className="w-full h-full flex flex-col items-center">
-      {items.length === 0 ? (
+      {items === null || items.length === 0 ? (
         <p className="py-2 text-white">No items found!</p>
       ) : (
         <>
-          {items.map((item) => {
-            return <p>Thing</p>;
+          {items.map((item, index) => {
+            return (
+              <Fragment key={item.id}>
+                {createElement(listItem, { ...item, even: index % 2 === 0 })}
+              </Fragment>
+            );
           })}
         </>
       )}
       {showAddItem ? createElement(addItem, { close: setShowAddItem }) : null}
       {showAddItem === false ? (
-        <div className="w-full py-2 flex flex-col items-center justify-center">
+        <div className="w-full py-2 f-full flex flex-col items-center justify-center">
           <FormButton
             loading={false}
             text="Add Item"

@@ -15,6 +15,7 @@ interface Errors {
 interface AddProjectErrorsState {
   values: Errors;
   setValue: any;
+  clearValues: any;
 }
 
 const [useStore] = create(
@@ -39,6 +40,19 @@ const [useStore] = create(
         values: newObject,
       }));
     },
+    clearValues: () =>
+      set(() => ({
+        values: {
+          name: false,
+          description: false,
+          openSource: false,
+          github: false,
+          live: false,
+          liveLink: false,
+          tech: false,
+          text: "",
+        },
+      })),
   })
 );
 

@@ -3,14 +3,14 @@ import create, { SetState } from "zustand";
 import Project from "../../../types/Project";
 
 interface ProjectListState {
-  projects: Array<Project | null>;
+  projects: Array<Project> | null;
   setProjects: any;
   addProject: any;
   removeProject: any;
 }
 
 const [useStore] = create((set: SetState<ProjectListState>) => ({
-  projects: [],
+  projects: null,
   setProjects: (projects: Array<Project>) =>
     set(() => ({
       projects,
