@@ -68,19 +68,6 @@ export default function Projects(): ReactElement {
     }
   }
 
-  useEffect(() => {
-    if (loggedIn && projectList === null) {
-      getProjects();
-    } else if (loggedIn && projectList !== null) {
-      setStatus("success");
-      setProjects(projectList);
-    }
-  }, [loggedIn]);
-
-  useEffect(() => {
-    setProjectList(projects);
-  }, [projects]);
-
   function deleteProject(): void {
     setDeleteLoading(true);
 
@@ -101,6 +88,19 @@ export default function Projects(): ReactElement {
 
     setDeleteLoading(false);
   }
+
+  useEffect(() => {
+    if (loggedIn && projectList === null) {
+      getProjects();
+    } else if (loggedIn && projectList !== null) {
+      setStatus("success");
+      setProjects(projectList);
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    setProjectList(projects);
+  }, [projects]);
 
   return (
     <>

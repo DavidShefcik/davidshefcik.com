@@ -21,7 +21,9 @@ const [useStore] = create((set: SetState<ProjectListState>) => ({
     })),
   removeProject: (project: Project) =>
     set((state) => ({
-      projects: state.projects.filter((item: Project) => item.id != project.id),
+      projects: state.projects.filter(
+        (item: Project) => item.id !== project.id
+      ),
     })),
 }));
 

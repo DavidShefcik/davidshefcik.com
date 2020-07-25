@@ -103,7 +103,7 @@ export default function App(): ReactElement {
 
   return (
     <div className="bg-primary-background w-full h-full">
-      <ViewTypeSwitch />
+      {/* <ViewTypeSwitch /> Don't have time to implement the terminal feature but I'll keep the basic stuff in place in case I ever have a chance to add it */}
       <BrowserRouter>
         {viewType === ViewTypes.GUI ? (
           <>
