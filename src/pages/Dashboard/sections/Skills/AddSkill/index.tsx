@@ -30,9 +30,9 @@ interface Props {
 export default function AddSkill({ close }: Props): ReactElement {
   const addSkillName = useAddSkill((state) => state.skillName);
   const setSkillName = useAddSkill((state) => state.setSkillName);
-  // const clearSkillValues = useAddSkill((state) => state.clearValues);
 
-  const setAddSkillError = useAddSkillErrors((state) => state.setError);
+  const setAddSkillErrorText = useAddSkillErrors((state) => state.setErrorText);
+  const setAddSkillHasError = useAddSkillErrors((state) => state.setHasError);
   const clearSkillError = useAddSkillErrors((state) => state.clearError);
   const addSkillHasError = useAddSkillErrors((state) => state.hasError);
   const addSkillErrorText = useAddSkillErrors((state) => state.errorText);
@@ -97,20 +97,21 @@ export default function AddSkill({ close }: Props): ReactElement {
 
         try {
           const newDoc = await db.collection("skills").add(skillForDB);
-          close(false);
           setSkillName("");
           clearSkillError();
           addSkillList(newDoc);
+          setLoading(false);
+          close(false);
         } catch (error) {
           if (process.env.NODE_ENV === "dev") {
             console.log(error);
           }
           hasError = true;
           setErrorText("Something happened! Please try again!");
+          setLoading(false);
         }
       }
     }
-    setLoading(false);
 
     return true;
   }
@@ -121,7 +122,11 @@ export default function AddSkill({ close }: Props): ReactElement {
   }, [nameValue]);
 
   useEffect(() => {
-    setAddSkillError(errorText);
+    setAddSkillHasError(nameError);
+  }, [nameError]);
+
+  useEffect(() => {
+    setAddSkillErrorText(errorText);
   }, [errorText]);
 
   return (
@@ -132,9 +137,9 @@ export default function AddSkill({ close }: Props): ReactElement {
           className="text-red-600 hover:text-red-700 cursor-pointer transition ease-in duration-75"
           title="Cancel"
           onClick={() => {
-            close(false);
             setSkillName("");
             clearSkillError();
+            close(false);
           }}
         />
       </div>

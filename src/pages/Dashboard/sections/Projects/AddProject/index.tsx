@@ -195,20 +195,21 @@ export default function AddProject({ close }: Props): ReactElement {
 
         try {
           const newDoc = await db.collection("projects").add(projectForDB);
-          close(false);
           clearProjectValues();
           clearProjectErrorValues();
           addProjectList(newDoc);
+          setLoading(false);
+          close(false);
         } catch (error) {
           if (process.env.NODE_ENV === "dev") {
             console.log(error);
           }
           hasError = true;
           setErrorText("Something happened! Please try again!");
+          setLoading(false);
         }
       }
     }
-    setLoading(false);
 
     return true;
   }

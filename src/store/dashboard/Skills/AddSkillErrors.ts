@@ -1,25 +1,32 @@
 import create, { SetState } from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface AddSkillErrorsState {
   hasError: boolean;
   errorText: string;
-  setError: any;
+  setHasError: any;
+  setErrorText: any;
   clearError: any;
 }
 
-const [useStore] = create((set: SetState<AddSkillErrorsState>) => ({
-  hasError: false,
-  errorText: "",
-  setError: (text: string) =>
-    set(() => ({
-      hasError: true,
-      errorText: text,
-    })),
-  clearError: () =>
-    set(() => ({
-      hasError: false,
-      errorText: "",
-    })),
-}));
+const [useStore] = create(
+  devtools((set: SetState<AddSkillErrorsState>) => ({
+    hasError: false,
+    errorText: "",
+    setHasError: (hasError: boolean) =>
+      set(() => ({
+        hasError,
+      })),
+    setErrorText: (text: string) =>
+      set(() => ({
+        errorText: text,
+      })),
+    clearError: () =>
+      set(() => ({
+        hasError: false,
+        errorText: "",
+      })),
+  }))
+);
 
 export default useStore;
