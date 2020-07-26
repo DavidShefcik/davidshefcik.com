@@ -10,7 +10,6 @@ interface Props {
 
 export default function Project({ project }: Props): ReactElement {
   const {
-    id,
     name,
     description,
     openSource,

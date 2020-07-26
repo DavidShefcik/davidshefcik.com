@@ -49,6 +49,7 @@ export default function Projects(): ReactElement {
       getProjects();
     } else {
       setProjects(projectList);
+      setStatus("success");
     }
   }, []);
 
@@ -57,7 +58,7 @@ export default function Projects(): ReactElement {
   }, [projects]);
 
   return (
-    <HomeSection title="Projects" status={status}>
+    <HomeSection title="Projects" status={status} growable>
       <Table projects={projects} />
     </HomeSection>
   );

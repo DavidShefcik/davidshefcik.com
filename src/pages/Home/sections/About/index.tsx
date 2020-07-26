@@ -47,7 +47,7 @@ export default function About(): ReactElement {
   }, [status]);
 
   return (
-    <HomeSection title="About" status={status}>
+    <HomeSection title="About" status={status} growable>
       <p className="text-lg text-gray-300 text-center w-4/5 lg:w-2/4">
         {status}
       </p>

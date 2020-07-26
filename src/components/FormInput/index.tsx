@@ -33,7 +33,7 @@ export default function FormInput({
       maxLength={maxLength}
       onChange={change}
       value={value}
-      className={`px-4 py-3 my-1 w-2/3 lg:w-2/4 text-white bg-secondary-background rounded-sm outline-none transition ease-in duration-75 border border-solid ${
+      className={`px-4 py-3 my-1 w-full lg:w-2/4 text-white bg-secondary-background rounded-sm outline-none transition ease-in duration-75 border border-solid ${
         error ? "border-red-600" : "border-darker-primary-background"
       } focus:border-blue-400`}
     />
