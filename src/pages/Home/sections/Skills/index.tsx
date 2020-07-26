@@ -73,7 +73,6 @@ export default function Skills(): ReactElement {
 
   useEffect(() => {
     setSkillList(skills);
-    setFilteredSkills(skills);
   }, [skills]);
 
   useEffect(() => {
