@@ -301,7 +301,7 @@ export default function AddProject({ close }: Props): ReactElement {
       <FormInput
         type="text"
         placeholder="Description"
-        maxLength={128}
+        maxLength={1024}
         onChange={setDescriptionValue}
         value={descriptionValue}
         error={descriptionError}

@@ -1,15 +1,31 @@
 import React, { ReactElement, ReactChild } from "react";
+import { BarLoader } from "react-spinners";
 
 interface Props {
   title: string;
+  status: string;
   children: ReactChild;
 }
 
-export default function HomeTitle({ title, children }: Props): ReactElement {
+export default function HomeTitle({
+  title,
+  children,
+  status,
+}: Props): ReactElement {
   return (
     <div className="growable-home-section w-full flex flex-col justify-center items-center py-6 px-10">
       <p className="text-white text-2xl pb-6">{title}</p>
-      {children}
+      {status === "loading" ? (
+        <BarLoader color="white" width={150} />
+      ) : status === "error" ? (
+        <p className="text-xl text-red-600">
+          Something happened! Please try again!
+        </p>
+      ) : (
+        <div className="w-full flex flex-col justify-center items-center">
+          {children}
+        </div>
+      )}
     </div>
   );
 }

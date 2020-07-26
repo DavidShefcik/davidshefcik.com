@@ -35,3 +35,8 @@
     width: 100%;
     overflow: hidden;
 }
+
+.project-box {
+    width: 24rem;
+    height: 24rem;
+}

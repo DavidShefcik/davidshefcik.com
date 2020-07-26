@@ -1,5 +1,4 @@
 import React, { ReactElement, useState, useEffect } from "react";
-import { BarLoader } from "react-spinners";
 import "firebase/firestore";
 
 import useFirebase from "../../../../store/Firebase";
@@ -48,18 +47,10 @@ export default function About(): ReactElement {
   }, [status]);
 
   return (
-    <HomeSection title="About">
-      {status === "loading" ? (
-        <BarLoader color="white" width={150} />
-      ) : status === "error" ? (
-        <p className="text-xl text-red-600">
-          Something happened! Please try again!
-        </p>
-      ) : (
-        <p className="text-lg text-gray-300 text-center w-4/5 lg:w-2/4">
-          {status}
-        </p>
-      )}
+    <HomeSection title="About" status={status}>
+      <p className="text-lg text-gray-300 text-center w-4/5 lg:w-2/4">
+        {status}
+      </p>
     </HomeSection>
   );
 }

@@ -1,12 +1,12 @@
 import create, { SetState, GetState } from "zustand";
 
-enum ViewTypes {
-  TERMINAL = "TERMINAL",
-  GUI = "GUI",
+enum ProjectsViewTypes {
+  CAROUSEL = "CAROUSEL",
+  TABLE = "TABLE",
 }
 interface ViewTypeState {
-  type: ViewTypes;
-  setType?: any;
+  type: ProjectsViewTypes;
+  setType: any;
 }
 
 const localStorageMiddleware = (config: any) => (
@@ -25,8 +25,8 @@ const localStorageMiddleware = (config: any) => (
 
 const [useStore] = create(
   localStorageMiddleware((set: SetState<ViewTypeState>) => ({
-    type: ViewTypes.GUI,
-    setType: (type: ViewTypes) =>
+    type: ProjectsViewTypes.CAROUSEL,
+    setType: (type: ProjectsViewTypes) =>
       set(() => ({
         type,
       })),
@@ -34,4 +34,4 @@ const [useStore] = create(
 );
 
 export default useStore;
-export { ViewTypes };
+export { ProjectsViewTypes };
