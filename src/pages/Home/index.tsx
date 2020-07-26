@@ -11,6 +11,7 @@ export default function Home(): ReactElement {
     <>
       <Title />
       <About />
+      <Projects />
     </>
   );
 }

@@ -4,8 +4,15 @@ import "firebase/firestore";
 
 import useFirebase from "../../../../store/Firebase";
 
+import useHomeAbout from "../../../../store/home/About";
+
+import HomeSection from "../../../../components/HomeSection";
+
 export default function About(): ReactElement {
   const firebase = useFirebase((state) => state.firebase);
+
+  const homeAbout = useHomeAbout((state) => state.aboutText);
+  const setHomeAbout = useHomeAbout((state) => state.setAboutText);
 
   const [status, setStatus] = useState("loading");
 
@@ -27,12 +34,21 @@ export default function About(): ReactElement {
         });
     };
 
-    fetchAbout();
+    if (homeAbout === null) {
+      fetchAbout();
+    } else {
+      setStatus(homeAbout);
+    }
   }, []);
 
+  useEffect(() => {
+    if (status !== "error" && status !== "loading" && status !== homeAbout) {
+      setHomeAbout(status);
+    }
+  }, [status]);
+
   return (
-    <div className="growable-home-section flex items-center flex-col py-6 px-10">
-      <p className="text-white text-2xl pb-6">About</p>
+    <HomeSection title="About">
       {status === "loading" ? (
         <BarLoader color="white" width={150} />
       ) : status === "error" ? (
@@ -44,6 +60,6 @@ export default function About(): ReactElement {
           {status}
         </p>
       )}
-    </div>
+    </HomeSection>
   );
 }

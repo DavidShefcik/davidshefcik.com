@@ -1,9 +1,11 @@
 import React, { ReactElement } from "react";
 
+import HomeSection from "../../../../components/HomeSection";
+
 export default function Projects(): ReactElement {
   return (
-    <div>
-      <p>Projects</p>
-    </div>
+    <HomeSection title="Projects">
+      <p>Project</p>
+    </HomeSection>
   );
 }
