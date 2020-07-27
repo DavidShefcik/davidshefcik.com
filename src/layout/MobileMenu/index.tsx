@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import "firebase/storage";
@@ -10,33 +10,10 @@ import useMobileMenu from "../../store/MobileMenu";
 
 import useSession from "../../store/Session";
 
-import useFirebase from "../../store/Firebase";
-
 export default function MobileMenu(): ReactElement {
   const mobileMenuVisible = useMobileMenu((state) => state.open);
 
-  const [resumeLink, setResumeLink] = useState("");
-
   const session = useSession((state) => state.session);
-
-  const firebase = useFirebase((state) => state.firebase);
-
-  const storage = firebase.storage().ref();
-
-  useEffect(() => {
-    const resumePDF = storage.child("Resume Edit.pdf");
-
-    resumePDF
-      .getDownloadURL()
-      .then((url: any) => {
-        setResumeLink(url);
-      })
-      .catch((error: any) => {
-        if (process.env.NODE_ENV === "dev") {
-          console.log(error);
-        }
-      });
-  }, []);
 
   return (
     <div
@@ -53,15 +30,6 @@ export default function MobileMenu(): ReactElement {
           </div>
         </HashLink>
       ))}
-      {resumeLink !== "" ? (
-        <a href={resumeLink} title="Resume" target="_blank" rel="noreferrer">
-          <div className="flex justify-center items-center w-full py-2">
-            <p className="text-lg text-gray-400 hover:text-gray-100 transition ease-in duration-100">
-              Resume
-            </p>
-          </div>
-        </a>
-      ) : null}
       {session.loggedIn === true && session.user != null ? (
         <Link to="/dashboard" title="Dashboard">
           <div className="flex justify-center items-center w-full py-2">
