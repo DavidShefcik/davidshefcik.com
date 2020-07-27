@@ -12,6 +12,7 @@ interface Props {
   onChange: Dispatch<SetStateAction<string>>;
   value: string;
   error?: boolean;
+  margin?: string;
 }
 
 export default function FormInput({
@@ -21,6 +22,7 @@ export default function FormInput({
   onChange,
   value,
   error,
+  margin,
 }: Props): ReactElement {
   function change(event: ChangeEvent<HTMLInputElement>) {
     onChange(event.target.value);
@@ -35,7 +37,7 @@ export default function FormInput({
       value={value}
       className={`px-4 py-3 my-1 w-full lg:w-2/4 text-white bg-secondary-background rounded-sm outline-none transition ease-in duration-75 border border-solid ${
         error ? "border-red-600" : "border-darker-primary-background"
-      } focus:border-blue-400`}
+      } focus:border-blue-400 ${margin || ""}`}
     />
   );
 }

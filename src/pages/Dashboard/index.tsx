@@ -13,7 +13,7 @@ import useSession from "../../store/Session";
 export default function Dashboard(): ReactElement {
   const loggedIn = useSession((state) => state.session.loggedIn);
 
-  const [currentSection, setCurrentSection] = useState("skills");
+  const [currentSection, setCurrentSection] = useState("about");
 
   const history = useHistory();
 

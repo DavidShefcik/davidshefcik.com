@@ -13,10 +13,6 @@ const sectionButtons: Array<SectionButton> = [
     text: "Skills",
     sectionName: "skills",
   },
-  {
-    text: "Contact",
-    sectionName: "contact",
-  },
 ];
 
 export default sectionButtons;

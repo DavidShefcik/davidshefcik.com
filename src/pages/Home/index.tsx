@@ -12,7 +12,8 @@ export default function Home(): ReactElement {
       <Title />
       {/* <About /> */}
       {/* <Projects /> */}
-      <Skills />
+      {/* <Skills /> */}
+      {/* <Contact /> */}
     </>
   );
 }

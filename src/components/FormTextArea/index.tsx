@@ -17,7 +17,7 @@ export default function FormTextArea({ value, onChange }: Props): ReactElement {
 
   return (
     <textarea
-      className="px-4 py-3 my-1 w-full lg:w-2/3 h-64 lg:h-auto text-white bg-darker-primary-background rounded-sm outline-none transition ease-in duration-75 border border-solid border-darker-primary-background border-darker-primary-background focus:border-blue-400"
+      className="px-4 py-3 my-1 w-full lg:w-2/3 h-64 lg:h-auto text-white bg-darker-primary-background rounded-sm outline-none transition ease-in duration-75 border border-solid border-darker-primary-background focus:border-blue-400"
       defaultValue={value}
       onChange={change}
     />

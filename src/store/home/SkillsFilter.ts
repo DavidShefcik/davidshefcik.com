@@ -5,7 +5,7 @@ import create, { SetState } from "zustand";
 import Skill from "../../types/Skill";
 
 interface FilteredSkillListState {
-  filteredSkills: Array<Skill>;
+  filteredSkills: Array<Skill> | null;
   filterQuery: string;
   setFilteredSkills: any;
   addFilteredSkill: any;
@@ -14,7 +14,7 @@ interface FilteredSkillListState {
 }
 
 const [useStore] = create((set: SetState<FilteredSkillListState>) => ({
-  filteredSkills: [],
+  filteredSkills: null,
   filterQuery: "",
   setFilteredSkills: (skills: Array<Skill>) =>
     set(() => ({
