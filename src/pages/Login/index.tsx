@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { User } from "firebase";
+import { Helmet } from "react-helmet";
 import "firebase/auth";
 import "firebase/firestore";
 
@@ -95,14 +96,19 @@ export default function Login(): ReactElement {
   });
 
   return (
-    <div className="page-contents-height w-full flex justify-center items-center flex-col">
-      <p className="text-white text-2xl pb-6">Login</p>
-      {hasError ? (
-        <p className="text-red-600 pb-6">
-          Something happened! Please try again!
-        </p>
-      ) : null}
-      <FormButton text="Login with Google" click={submit} loading={loading} />
-    </div>
+    <>
+      <Helmet>
+        <meta name="robots" content="noindex" />
+      </Helmet>
+      <div className="page-contents-height w-full flex justify-center items-center flex-col">
+        <p className="text-white text-2xl pb-6">Login</p>
+        {hasError ? (
+          <p className="text-red-600 pb-6">
+            Something happened! Please try again!
+          </p>
+        ) : null}
+        <FormButton text="Login with Google" click={submit} loading={loading} />
+      </div>
+    </>
   );
 }
