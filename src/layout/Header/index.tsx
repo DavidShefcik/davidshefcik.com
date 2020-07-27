@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import HamburgerMenu from "react-hamburger-menu";
 
 import NavLink from "../../types/NavLink";
@@ -18,25 +19,26 @@ export default function Header(): ReactElement {
   return (
     <div className="flex flex-row items-center justify-between bg-secondary-background box-border px-5 h-16 w-full overflow-hidden fixed z-50 shadow">
       <div className="h-full w-3/4 lg:w-1/4 flex justify-center items-center">
-        <Link
-          to="/"
+        <HashLink
+          to="/#home"
           title="David Shefcik"
           className="flex items-center justify-center h-full"
+          smooth
         >
           <p className="text-2xl text-white italic">David Shefcik</p>
-        </Link>
+        </HashLink>
       </div>
       <div className="h-full w-1/4 lg:w-3/4">
         <div className="w-full h-full hidden lg:flex justify-end px-24 items-center flex-row">
           {navLinks.map((link: NavLink) => {
             return (
-              <Link to={link.path} title={link.text} key={link.text}>
+              <HashLink to={link.path} title={link.text} key={link.text} smooth>
                 <div className="flex justify-center items-center h-full px-5">
                   <p className="text-lg text-gray-400 hover:text-gray-100 transition ease-in duration-100">
                     {link.text}
                   </p>
                 </div>
-              </Link>
+              </HashLink>
             );
           })}
           {session.loggedIn === true && session.user != null ? (

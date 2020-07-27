@@ -9,11 +9,16 @@ import Contact from "./sections/Contact";
 export default function Home(): ReactElement {
   return (
     <>
+      <div id="home" />
       <Title />
-      {/* <About /> */}
-      {/* <Projects /> */}
-      {/* <Skills /> */}
-      {/* <Contact /> */}
+      <div id="about" />
+      <About />
+      <div id="projects" />
+      <Projects />
+      <div id="skills" />
+      <Skills />
+      <div id="contact" />
+      <Contact />
     </>
   );
 }

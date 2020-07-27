@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 import NavLink from "../../types/NavLink";
 import navLinks from "../../values/navLinks";
@@ -20,13 +21,13 @@ export default function MobileMenu(): ReactElement {
       }`}
     >
       {navLinks.map((link: NavLink) => (
-        <Link to={link.path} title={link.text} key={link.text}>
+        <HashLink to={link.path} title={link.text} key={link.text}>
           <div className="flex justify-center items-center w-full py-2">
             <p className="text-lg text-gray-400 hover:text-gray-100 transition ease-in duration-100">
               {link.text}
             </p>
           </div>
-        </Link>
+        </HashLink>
       ))}
 
       {session.loggedIn === true && session.user != null ? (
