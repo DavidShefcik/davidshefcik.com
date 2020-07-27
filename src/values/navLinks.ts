@@ -14,10 +14,6 @@ const links: Array<NavLink> = [
     path: "/#skills",
   },
   {
-    text: "Resume",
-    path: "/resume",
-  },
-  {
     text: "Contact",
     path: "/#contact",
   },

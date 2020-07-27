@@ -1,7 +1,8 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import HamburgerMenu from "react-hamburger-menu";
+import "firebase/storage";
 
 import NavLink from "../../types/NavLink";
 import navLinks from "../../values/navLinks";
@@ -10,11 +11,34 @@ import useMobileMenu from "../../store/MobileMenu";
 
 import useSession from "../../store/Session";
 
+import useFirebase from "../../store/Firebase";
+
 export default function Header(): ReactElement {
   const mobileMenuOpen = useMobileMenu((state) => state.open);
   const toggleMobileMenuOpen = useMobileMenu((state) => state.toggleOpen);
 
+  const [resumeLink, setResumeLink] = useState("");
+
   const session = useSession((state) => state.session);
+
+  const firebase = useFirebase((state) => state.firebase);
+
+  const storage = firebase.storage().ref();
+
+  useEffect(() => {
+    const resumePDF = storage.child("Resume Edit.pdf");
+
+    resumePDF
+      .getDownloadURL()
+      .then((url: any) => {
+        setResumeLink(url);
+      })
+      .catch((error: any) => {
+        if (process.env.NODE_ENV === "dev") {
+          console.log(error);
+        }
+      });
+  }, []);
 
   return (
     <div className="flex flex-row items-center justify-between bg-secondary-background box-border px-5 h-16 w-full overflow-hidden fixed z-50 shadow">
@@ -41,6 +65,18 @@ export default function Header(): ReactElement {
               </HashLink>
             );
           })}
+          {resumeLink !== "" ? (
+            <a
+              href={resumeLink}
+              title="Resume"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <p className="text-lg text-gray-400 hover:text-gray-100 transition ease-in duration-100">
+                Resume
+              </p>
+            </a>
+          ) : null}
           {session.loggedIn === true && session.user != null ? (
             <Link to="/dashboard" title="Dashboard">
               <div className="flex justify-center items-center h-full px-5">
