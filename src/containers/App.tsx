@@ -7,6 +7,7 @@ import "firebase/auth";
 import "./css/tailwind.css";
 
 import Header from "../layout/Header";
+import MobileMenu from "../layout/MobileMenu";
 import Terminal from "../layout/Terminal";
 import Navigation from "./Navigation";
 import ViewTypeSwitch from "../layout/ViewTypeSwitch";
@@ -108,6 +109,7 @@ export default function App(): ReactElement {
         {viewType === ViewTypes.GUI ? (
           <>
             <Header />
+            <MobileMenu />
             <div className="page-contents">
               <Navigation />
             </div>

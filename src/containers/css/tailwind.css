@@ -16,6 +16,13 @@
     background-color: #202629;
 }
 
+.mobile-menu {
+    padding-top: 64px;
+}
+.mobile-menu-height {
+    height: 24rem;
+}
+
 .page-contents {
     min-height: 100vh;
     width: 100%;
