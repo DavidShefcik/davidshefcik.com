@@ -6,6 +6,7 @@ build/
 *.log
 .firebaserc
 firebase.json
+.firebase
 database.rules.json
 todos.txt
 

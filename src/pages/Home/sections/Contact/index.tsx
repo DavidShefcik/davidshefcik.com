@@ -24,6 +24,8 @@ export default function Contact(): ReactElement {
   const [messageValue, setMessageValue] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [captchaSolved, setCaptchaSolved] = useState(false);
+
   const [emailError, setEmailError] = useState(false);
   const [subjectError, setSubjectError] = useState(false);
   const [messageError, setMessageError] = useState(false);
@@ -35,15 +37,19 @@ export default function Contact(): ReactElement {
 
   const db = firebase.firestore();
 
-  let recaptchaSolved = false;
-
-  function captchaSolved(value: any): void {
+  function onCaptchaSolved(value: any): void {
     axios
-      .get(`${process.env.FUNCTIONS_URL}/captchaCheck?code=${value}`)
+      .get(
+        `${
+          process.env.NODE_ENV === "dev"
+            ? process.env.DEV_FUNCTIONS_URL
+            : process.env.PROD_FUNCTIONS_URL
+        }/captchaCheck?code=${value}`
+      )
       .then((res: any) => {
         const { data } = res;
         if (data.message === "ok") {
-          recaptchaSolved = true;
+          setCaptchaSolved(true);
         }
       })
       .catch((error: any) => {
@@ -94,7 +100,7 @@ export default function Contact(): ReactElement {
     }
 
     if (!hasError) {
-      if (recaptchaSolved) {
+      if (captchaSolved) {
         try {
           const contactForDB = {
             email: emailValue,
@@ -167,7 +173,7 @@ export default function Contact(): ReactElement {
           <ReCAPTCHA
             sitekey={process.env.RECAPTCHA_SITE_KEY}
             theme="dark"
-            onChange={captchaSolved}
+            onChange={onCaptchaSolved}
           />
         </div>
         {errorText !== "" ? (
