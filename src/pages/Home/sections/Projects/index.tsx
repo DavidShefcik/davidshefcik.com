@@ -1,5 +1,4 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import "firebase/firestore";
 
 import ProjectType from "../../../../types/Project";
 

@@ -6,7 +6,6 @@ import React, {
   SetStateAction,
 } from "react";
 import { MdDelete } from "react-icons/md";
-import "firebase/firestore";
 
 import FormInput from "../../../../../components/FormInput";
 import FormDropdown from "../../../../../components/FormDropdown";

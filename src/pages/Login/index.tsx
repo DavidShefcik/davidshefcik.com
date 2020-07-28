@@ -2,8 +2,6 @@ import React, { ReactElement, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { User } from "firebase";
 import { Helmet } from "react-helmet";
-import "firebase/auth";
-import "firebase/firestore";
 
 import FormButton from "../../components/FormButton";
 

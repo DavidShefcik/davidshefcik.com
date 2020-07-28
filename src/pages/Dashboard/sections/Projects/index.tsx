@@ -1,7 +1,6 @@
 import React, { ReactElement, useState, useEffect } from "react";
 import { BarLoader } from "react-spinners";
 import { MdRefresh } from "react-icons/md";
-import "firebase/firestore";
 
 import DashboardItemList from "../../../../components/DashboardItemList";
 

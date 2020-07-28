@@ -1,6 +1,5 @@
 import React, { ReactElement, Dispatch, SetStateAction, useState } from "react";
 import { useHistory } from "react-router-dom";
-import "firebase/auth";
 
 import ConfirmModal from "../../../layout/Modals/ConfirmModal";
 

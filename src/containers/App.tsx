@@ -2,7 +2,6 @@ import React, { ReactElement, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import firebase, { User } from "firebase";
 import app from "firebase/app";
-import "firebase/auth";
 
 import "./css/tailwind.css";
 

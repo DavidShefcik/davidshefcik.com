@@ -1,6 +1,5 @@
 import React, { ReactElement, useState, useEffect } from "react";
 import { BarLoader } from "react-spinners";
-import "firebase/firestore";
 
 import FormTextArea from "../../../../components/FormTextArea";
 import FormButton from "../../../../components/FormButton";

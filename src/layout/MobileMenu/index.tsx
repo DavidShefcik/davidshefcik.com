@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import "firebase/storage";
 
 import NavLink from "../../types/NavLink";
 import navLinks from "../../values/navLinks";

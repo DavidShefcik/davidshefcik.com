@@ -6,7 +6,6 @@ import React, {
 } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
-import "firebase/firestore";
 
 import HomeSection from "../../../../components/HomeSection";
 
